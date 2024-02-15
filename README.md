@@ -57,9 +57,8 @@ sudo chmod 700 ~/subspacefarmer
 
 ##  Node için subspaced isimli bir servis dosyası oluşturalım;
 
-```
-$NODE_NAME=NodeAdınızıYazın
-```
+>NODENAME yerine kendi adınızı yazın. Tırnaklar kalacak!
+
 ```
 sudo tee <<EOF >/dev/null /etc/systemd/system/subspaced.service
 [Unit]
@@ -67,7 +66,7 @@ Description=Subspace Node
 
 [Service]
 User=$USER
-ExecStart=subspace-node run  --chain gemini-3h --base-path /root/subspacenode --farmer --name '$NODE_NAME'
+ExecStart=subspace-node run  --chain gemini-3h --base-path /root/subspacenode --farmer --name 'NODENAME'
 Restart=always
 RestartSec=10
 LimitNOFILE=10000
@@ -82,10 +81,10 @@ EOF
 sudo systemctl daemon-reload
 ```
 ```
- sudo systemctl enable subspace-node.service
+ sudo systemctl enable subspaced
 ```
 ```
-sudo systemctl restart subspace-node.service
+sudo systemctl restart subspaced
 ```
 # [BURADAN](https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd) Polkadotjs cüzdan indiriyoruz.
 
@@ -111,13 +110,10 @@ sudo systemctl restart subspace-node.service
   
 ### CUZDANADRESI kısmına ödül almak istediğiniz cüzdan adresini giriyoruz. 
 ### SIZE bölümüne ise sunucu içinde ayrılacak boyutu giriyoruz. 
-```
-$ADDRESS=Cüzdanadresiniekleyin
-```
-```
-$PLOTSIZE=SIZE Yazın(Örnek 100G,200G)
-```
-> Örneğin 400G SDD aldınız 110G'sini bırakıyoruz. 290G subspace veriyoruz. Oraya gireceğiniz örnek olarak: 290G,300G gibi 
+
+> CUZDANADDRESI Cüzdanadresiniekleyin
+
+> PLOTSIZE Örneğin 400G SDD aldınız 110G'sini bırakıyoruz. 290G subspace veriyoruz. Oraya gireceğiniz örnek olarak: 290G,300G gibi 
 
  ```
 sudo tee <<EOF >/dev/null /etc/systemd/system/farmerd.service
@@ -126,7 +122,7 @@ Description=Subspace Farmer
 
 [Service]
 User=$USER
-ExecStart=subspace-farmer farm --reward-address $ADDRESS path=/root/subspacefarmer,size=$PLOTSIZE
+ExecStart=subspace-farmer farm --reward-address CUZDANADDRESI path=/root/subspacefarmer,size=PLOTSIZE
 Restart=always
 RestartSec=10
 LimitNOFILE=10000
@@ -140,10 +136,10 @@ EOF
 sudo systemctl daemon-reload
 ```
 ```
-sudo systemctl enable subspace-farmer.service
+sudo systemctl enable farmerd
 ```
 ```
-sudo systemctl restart subspace-farmer.service
+sudo systemctl restart farmerd
 ```  
 ## Node loglarımıza bakıyoruz.
 ```
