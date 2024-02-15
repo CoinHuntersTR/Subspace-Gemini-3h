@@ -110,11 +110,15 @@ EOF
   ```
   sudo systemctl restart subspace-farmer.service
   ```  
-## Node loglarımıza bakıyoruz.(Aşağıdaki görsel gibi logların akması gerekiyor.)
+## Node loglarımıza bakıyoruz.
   ```
- journalctl -u subspaced -f -o cat
+ journalctl -u subspace-node.service -f
   ```  
 
+## Farmer loglarımıza bakıyoruz.
+  ```
+ journalctl -u subspace-farmer.service -f
+  ```  
 ![supspace2](https://user-images.githubusercontent.com/111747226/191376523-09d78401-83d8-46d1-9344-924344208f73.png)
   
 ## Sync kontrol etmek için 
