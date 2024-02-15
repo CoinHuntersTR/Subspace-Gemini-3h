@@ -78,10 +78,26 @@ EOF
 
 ### Testnete katılmak için gerekli cüzdan adresini; cüzdanımıza bu ayarları yaptıktan sonra, gelen adresi kopyalıyoruz.
 
+> Aşağıdaki resminde olduğu gibi st ile başlayan adresini ekleyip onu bir yere not edelim.
+
+![Ekran görüntüsü 2024-02-15 140044](https://github.com/CoinHuntersTR/Subspace-Gemini-3h/assets/111747226/e1451b1a-07b6-46c1-8dc9-9a1819fb6e96)
+
+> Bu adrese ulaşabilmek için [BURADAN](https://polkadot.js.org/apps/) polkadot js gidiyoruz.
+
+![Ekran görüntüsü 2024-02-15 140249](https://github.com/CoinHuntersTR/Subspace-Gemini-3h/assets/111747226/17bf69f8-cad4-4635-8e0e-b30ff09e55c9)
+
+> Simgesine bastığınızda birçok ağ göreceksini orada testnet network ağını seçip, Subspace gemini 3g yada 3h seçebilirsiniz. Seçimi yaptıktan sonra en üstten swich diyerek ağı değiştirelim.
+
+![Ekran görüntüsü 2024-02-15 140422](https://github.com/CoinHuntersTR/Subspace-Gemini-3h/assets/111747226/c99a09f6-5276-4d83-a735-ba755dd2cb6b)
+
+> Setting Metadata bölümüne geldiğinizde sizde update çıkacak ona bastığınızda st ile başlayan cüzdan adresine erişmiş olursunuz.
 
   ## Farmer için subspace-farmer isimli bir servis oluşturalım;
   
-  ### CUZDANADRESI kısmına ödül almak istediğiniz cüzdan adresini giriyoruz.
+  ### CUZDANADRESI kısmına ödül almak istediğiniz cüzdan adresini giriyoruz. 
+  ### SIZE bölümüne ise sunucu içinde ayrılacak boyutu giriyoruz. 
+  
+  > Örneğin 400G SDD aldınız 110G'sini bırakıyoruz. 290G subspace veriyoruz. Oraya gireceğiniz örnek olarak: 290G,300G gibi 
 
   ```
   sudo tee <<EOF >/dev/null /etc/systemd/system/subspace-farmer.service
@@ -119,15 +135,10 @@ EOF
   ```
  journalctl -u subspace-farmer.service -f
   ```  
-![supspace2](https://user-images.githubusercontent.com/111747226/191376523-09d78401-83d8-46d1-9344-924344208f73.png)
-  
-## Sync kontrol etmek için 
-  ### isSynincg:false çıktısı almanız lazım
-  ```
- curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params":[]}' http://localhost:9933
-  ```   
-![subspace 3](https://user-images.githubusercontent.com/111747226/191377150-74d43064-261d-4bf4-bb70-8bd8b6cf298b.png)
-  
+> Bu adımları yaptıktan sonra alta explorer linki var oradan kendinizi bulabilirsiniz.
+
+![Ekran görüntüsü 2024-02-15 135945](https://github.com/CoinHuntersTR/Subspace-Gemini-3h/assets/111747226/abd5edaa-bacf-4484-8fb7-92d99b1615f7)
+
  ## Subspace Network Linkler;
   
 ### [Discord](https://discord.gg/subspace-network)
