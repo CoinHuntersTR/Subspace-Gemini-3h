@@ -111,7 +111,7 @@ sudo systemctl restart subspaced
 ### CUZDANADRESI kısmına ödül almak istediğiniz cüzdan adresini giriyoruz. 
 ### SIZE bölümüne ise sunucu içinde ayrılacak boyutu giriyoruz. 
 
-> CUZDANADDRESI Cüzdanadresiniekleyin
+> CUZDANADDRESI Cüzdan adresinizi ekleyin.
 
 > PLOTSIZE Örneğin 400G SDD aldınız 110G'sini bırakıyoruz. 290G subspace veriyoruz. Oraya gireceğiniz örnek olarak: 290G,300G gibi 
 
