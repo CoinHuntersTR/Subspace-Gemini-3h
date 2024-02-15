@@ -5,6 +5,11 @@
   
  ![image](https://user-images.githubusercontent.com/107190154/191179355-ac1b6ff1-095b-4937-8f2c-8578c0774345.gif)
 
+## Uyarılar
+> Öncelikle seçeneğiniz sunucunun SSD diskinin büyük olması daha iyi sonuç verecektir. Minimum gereksinimleri aşağıya yazdım.
+
+> Testnet süresince kazandığımız tokenler, belli bir havuz içinde tüm kazananlara göre bölünerek karşılığında mainnet coini kazanacağız. Kısaca testnet ÖDÜLLÜ!
+
 ### Sistem Gereksinimleri 
 
 |CPU | RAM  | Disk  | 
