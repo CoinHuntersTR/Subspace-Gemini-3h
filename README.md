@@ -12,52 +12,46 @@
 |   4| 8GB  | 160GB     |
 
   
-  # NODE KURULUMU
+# NODE KURULUMU
   
-  ## Sistem Güncelleme
+## Sistem Güncelleme
   
-   ### Sistem güncellemesi yapıyoruz
-  ```
-  sudo apt update && sudo apt upgrade -y
-  ```
+### Sistem güncellemesi yapıyoruz
+```
+sudo apt update && sudo apt upgrade -y
+```
   
-  ## Kütüphanelerin Kurulumu
-   ```
+## Kütüphanelerin Kurulumu
+```
 sudo apt install ocl-icd-opencl-dev ocl-icd-libopencl1 libopencl-clang-dev libgomp1 -y && sudo apt install wget -y && cd $HOME
-  ```
-  ## Subspace Node ve Farmer Dosyalarını indiriyoruz.
-  ```
-  wget https://github.com/subspace/subspace/releases/download/gemini-3h-2024-feb-05/subspace-farmer-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05
-  ```
-  ```
-  wget https://github.com/subspace/subspace/releases/download/gemini-3h-2024-feb-05/subspace-node-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05
-  ```
-   ## Binary dosyalarına yetki veriyoruz
-  ```
-   sudo mv subspace-node-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05 /usr/local/bin/subspace-node
-  ```
- ```
-   sudo mv subspace-farmer-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05 /usr/local/bin/subspace-farmer
-  ```
-  ```
-  sudo chmod +x /usr/local/bin/subspace
-  ```
- ```
- mkdir subspacenode
-  ```
 ```
-sudo chmod 700 ~/subspacenode
-  ```
- ```
- mkdir subspacefarmer
-  ```
+## Subspace Node ve Farmer Dosyalarını indiriyoruz.
 ```
-sudo chmod 700 ~/subspacefarmer
-  ```
+wget -qO https://github.com/subspace/subspace/releases/download/gemini-3h-2024-feb-05/subspace-farmer-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05
+```
+```
+wget -qO https://github.com/subspace/subspace/releases/download/gemini-3h-2024-feb-05/subspace-node-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05
+```
+## Binary dosyalarına yetki veriyoruz
+```
+sudo chmod +x subspace-node-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05
+```
+```
+sudo chmod +x subspace-farmer-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05
+```
+```
+sudo mv subspace-node-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05 /usr/local/bin/subspaceNode
+```
+```
+sudo mv subspace-node-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05 /usr/local/bin/subspaceFarmer
+ ```
+
 ##  Node için subspaced isimli bir servis dosyası oluşturalım; (NODEISMINIYAZ kısmına istediğiniz node isminizi yazmayı unutmayın!)
 ```
+sudo tee <<EOF >/dev/null /etc/systemd/system/subspaced.service
 [Unit]
-Description=Subspace Node
+Description=Supsapce Node
+After=network.target
 
 [Service]
 User=$USER
@@ -67,21 +61,20 @@ RestartSec=10
 LimitNOFILE=10000
 
 [Install]
-WantedBy=multi-user.target" > $HOME/subspace-node.service
-
-sudo mv $HOME/subspace-node.service /etc/systemd/system
-  ``` 
+WantedBy=multi-user.target
+EOF
+``` 
   
- ## Node servislerini başlatalım
-  ```
-  sudo systemctl daemon-reload
-  ```
-  ```
-  sudo systemctl enable subspace-node.service
-  ```
-  ```
-  sudo systemctl restart subspace-node.service
-  ```
+## Node servislerini başlatalım
+```
+sudo systemctl daemon-reload
+```
+```
+sudo systemctl enable subspaced
+```
+```
+sudo systemctl restart subspaced
+```
 # [BURADAN](https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd) Polkadotjs cüzdan indiriyoruz.
 
 ### [Buradan](https://coinhunterstr.com/polkadot-cuzdan-nasil-olusturulur-2/) Detaylı Kurulum Rehberine ulaşabilirsiniz.
@@ -102,16 +95,18 @@ sudo mv $HOME/subspace-node.service /etc/systemd/system
 
 > Setting Metadata bölümüne geldiğinizde sizde update çıkacak ona bastığınızda st ile başlayan cüzdan adresine erişmiş olursunuz.
 
-  ## Farmer için subspace-farmer isimli bir servis oluşturalım;
+## Farmer için subspace-farmer isimli bir servis oluşturalım;
   
-  ### CUZDANADRESI kısmına ödül almak istediğiniz cüzdan adresini giriyoruz. 
-  ### SIZE bölümüne ise sunucu içinde ayrılacak boyutu giriyoruz. 
+### CUZDANADRESI kısmına ödül almak istediğiniz cüzdan adresini giriyoruz. 
+### SIZE bölümüne ise sunucu içinde ayrılacak boyutu giriyoruz. 
   
-  > Örneğin 400G SDD aldınız 110G'sini bırakıyoruz. 290G subspace veriyoruz. Oraya gireceğiniz örnek olarak: 290G,300G gibi 
+> Örneğin 400G SDD aldınız 110G'sini bırakıyoruz. 290G subspace veriyoruz. Oraya gireceğiniz örnek olarak: 290G,300G gibi 
 
-  ```
- [Unit]
-Description=Subspace Farmer
+ ```
+sudo tee <<EOF >/dev/null /etc/systemd/system/farmerd.service
+[Unit]
+Description=Supsapce Node
+After=network.target
 
 [Service]
 User=$USER
@@ -121,29 +116,28 @@ RestartSec=10
 LimitNOFILE=10000
 
 [Install]
-WantedBy=multi-user.target" > $HOME/subspace-farmer.service
-
-sudo mv $HOME/subspace-farmer.service /etc/systemd/system
-  ```
- ## Farmer servislerini başlatalım
-  ```
-  sudo systemctl daemon-reload
-  ```
-  ```
-  sudo systemctl enable subspace-farmer.service
-  ```
-  ```
-  sudo systemctl restart subspace-farmer.service
-  ```  
+WantedBy=multi-user.target
+EOF
+```
+## Farmer servislerini başlatalım
+```
+sudo systemctl daemon-reload
+```
+```
+sudo systemctl enable farmerd
+```
+```
+sudo systemctl restart farmerd
+```  
 ## Node loglarımıza bakıyoruz.
-  ```
- journalctl -u subspace-node.service -f
-  ```  
+```
+journalctl -u subspaced -f -o cat
+```  
 
 ## Farmer loglarımıza bakıyoruz.
-  ```
- journalctl -u subspace-farmer.service -f
-  ```  
+```
+journalctl -u farmerd -f -o cat
+```  
 > Bu adımları yaptıktan sonra alta explorer linki var oradan kendinizi bulabilirsiniz.
 
 ![Ekran görüntüsü 2024-02-15 135945](https://github.com/CoinHuntersTR/Subspace-Gemini-3h/assets/111747226/abd5edaa-bacf-4484-8fb7-92d99b1615f7)
