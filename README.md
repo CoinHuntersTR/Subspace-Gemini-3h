@@ -35,31 +35,41 @@ sudo apt install ocl-icd-opencl-dev ocl-icd-libopencl1 libopencl-clang-dev libgo
    ## Binary dosyalarına yetki veriyoruz
   ```
    sudo mv subspace-node-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05 /usr/local/bin/subspace-node
+  ```
+ ```
    sudo mv subspace-farmer-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05 /usr/local/bin/subspace-farmer
   ```
   ```
+  sudo chmod +x /usr/local/bin/subspace
+  ```
+ ```
  mkdir subspacenode
- sudo chmod 700 ~/subspacenode
+  ```
+```
+sudo chmod 700 ~/subspacenode
+  ```
+ ```
  mkdir subspacefarmer
- sudo chmod 700 ~/subspacefarmer
+  ```
+```
+sudo chmod 700 ~/subspacefarmer
   ```
 ##  Node için subspaced isimli bir servis dosyası oluşturalım; (NODEISMINIYAZ kısmına istediğiniz node isminizi yazmayı unutmayın!)
 ```
-sudo tee <<EOF >/dev/null /etc/systemd/system/subspace-node.service
 [Unit]
-Description=Supsapce Node
-After=network.target
+Description=Subspace Node
 
 [Service]
 User=$USER
-ExecStart=subspace-node run  --chain gemini-3h --base-path /root/subspacenode --farmer --name 'NODEISMI'
+ExecStart=subspace-node run  --chain gemini-3h --base-path /root/subspacenode --farmer --name 'NODEISMINIYAZ'
 Restart=always
 RestartSec=10
 LimitNOFILE=10000
 
 [Install]
-WantedBy=multi-user.target
-EOF
+WantedBy=multi-user.target" > $HOME/subspace-node.service
+
+sudo mv $HOME/subspace-node.service /etc/systemd/system
   ``` 
   
  ## Node servislerini başlatalım
@@ -100,10 +110,8 @@ EOF
   > Örneğin 400G SDD aldınız 110G'sini bırakıyoruz. 290G subspace veriyoruz. Oraya gireceğiniz örnek olarak: 290G,300G gibi 
 
   ```
-  sudo tee <<EOF >/dev/null /etc/systemd/system/subspace-farmer.service
-[Unit]
+ [Unit]
 Description=Subspace Farmer
-After=network.target
 
 [Service]
 User=$USER
@@ -113,8 +121,9 @@ RestartSec=10
 LimitNOFILE=10000
 
 [Install]
-WantedBy=multi-user.target
-EOF
+WantedBy=multi-user.target" > $HOME/subspace-farmer.service
+
+sudo mv $HOME/subspace-farmer.service /etc/systemd/system
   ```
  ## Farmer servislerini başlatalım
   ```
