@@ -43,7 +43,7 @@ sudo chmod +x subspace-farmer-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05
 sudo mv subspace-node-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05 /usr/local/bin/subspaceNode
 ```
 ```
-sudo mv subspace-node-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05 /usr/local/bin/subspaceFarmer
+sudo mv subspace-farmer-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05 /usr/local/bin/subspaceFarmer
  ```
 
 ##  Node için subspaced isimli bir servis dosyası oluşturalım; (NODEISMINIYAZ kısmına istediğiniz node isminizi yazmayı unutmayın!)
