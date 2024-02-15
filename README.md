@@ -9,7 +9,7 @@
 
 |CPU | RAM  | Disk  | 
 |----|------|----------|
-|   4| 4GB(8)  | 150GB     |
+|   4| 8GB  | 160GB     |
 
   
   # NODE KURULUMU
@@ -45,7 +45,7 @@ sudo apt install ocl-icd-opencl-dev ocl-icd-libopencl1 libopencl-clang-dev libgo
   ```
 ##  Node için subspaced isimli bir servis dosyası oluşturalım; (NODEISMINIYAZ kısmına istediğiniz node isminizi yazmayı unutmayın!)
 ```
-sudo tee <<EOF >/dev/null /etc/systemd/system/subspaced.service
+sudo tee <<EOF >/dev/null /etc/systemd/system/subspace-node.service
 [Unit]
 Description=Supsapce Node
 After=network.target
@@ -79,12 +79,12 @@ EOF
 ### Testnete katılmak için gerekli cüzdan adresini; cüzdanımıza bu ayarları yaptıktan sonra, gelen adresi kopyalıyoruz.
 
 
-  ## Farmer için farmerd isimli bir servis oluşturalım;
+  ## Farmer için subspace-farmer isimli bir servis oluşturalım;
   
   ### CUZDANADRESI kısmına ödül almak istediğiniz cüzdan adresini giriyoruz.
 
   ```
-  sudo tee <<EOF >/dev/null /etc/systemd/system/farmerd.service
+  sudo tee <<EOF >/dev/null /etc/systemd/system/subspace-farmer.service
 [Unit]
 Description=Subspace Farmer
 After=network.target
