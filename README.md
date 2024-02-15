@@ -34,28 +34,40 @@ wget https://github.com/subspace/subspace/releases/download/gemini-3h-2024-feb-0
 ```
 ## Binary dosyalarına yetki veriyoruz
 ```
-sudo chmod +x subspace-node-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05
+sudo mv subspace-node-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05 /usr/local/bin/subspace-node
 ```
 ```
-sudo chmod +x subspace-farmer-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05
+sudo mv subspace-farmer-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05 /usr/local/bin/subspace-farmer
 ```
 ```
-sudo mv subspace-node-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05 /usr/local/bin/subspaceNode
+sudo chmod +x /usr/local/bin/subspace*
 ```
 ```
-sudo mv subspace-farmer-ubuntu-x86_64-skylake-gemini-3h-2024-feb-05 /usr/local/bin/subspaceFarmer
- ```
+mkdir subspacenode
+```
+```
+sudo chmod 700 ~/subspacenode
+```
+```
+mkdir subspacefarmer
+```
+```
+sudo chmod 700 ~/subspacefarmer
+```
 
-##  Node için subspaced isimli bir servis dosyası oluşturalım; (NODEISMINIYAZ kısmına istediğiniz node isminizi yazmayı unutmayın!)
+##  Node için subspaced isimli bir servis dosyası oluşturalım;
+
+```
+$NODE_NAME=NodeAdınızıYazın
+```
 ```
 sudo tee <<EOF >/dev/null /etc/systemd/system/subspaced.service
 [Unit]
-Description=Supsapce Node
-After=network.target
+Description=Subspace Node
 
 [Service]
 User=$USER
-ExecStart=subspace-node run  --chain gemini-3h --base-path /root/subspacenode --farmer --name 'NODEISMINIYAZ'
+ExecStart=subspace-node run  --chain gemini-3h --base-path /root/subspacenode --farmer --name '$NODE_NAME'
 Restart=always
 RestartSec=10
 LimitNOFILE=10000
@@ -70,10 +82,10 @@ EOF
 sudo systemctl daemon-reload
 ```
 ```
-sudo systemctl enable subspaced
+ sudo systemctl enable subspace-node.service
 ```
 ```
-sudo systemctl restart subspaced
+sudo systemctl restart subspace-node.service
 ```
 # [BURADAN](https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd) Polkadotjs cüzdan indiriyoruz.
 
@@ -99,18 +111,22 @@ sudo systemctl restart subspaced
   
 ### CUZDANADRESI kısmına ödül almak istediğiniz cüzdan adresini giriyoruz. 
 ### SIZE bölümüne ise sunucu içinde ayrılacak boyutu giriyoruz. 
-  
+```
+$ADDRESS=Cüzdanadresiniekleyin
+```
+```
+$PLOTSIZE=SIZE Yazın(Örnek 100G,200G)
+```
 > Örneğin 400G SDD aldınız 110G'sini bırakıyoruz. 290G subspace veriyoruz. Oraya gireceğiniz örnek olarak: 290G,300G gibi 
 
  ```
 sudo tee <<EOF >/dev/null /etc/systemd/system/farmerd.service
 [Unit]
-Description=Supsapce Node
-After=network.target
+Description=Subspace Farmer
 
 [Service]
 User=$USER
-ExecStart=subspace-farmer farm --reward-address CUZDANADRESI path=/root/subspacefarmer,size=SIZE
+ExecStart=subspace-farmer farm --reward-address $ADDRESS path=/root/subspacefarmer,size=$PLOTSIZE
 Restart=always
 RestartSec=10
 LimitNOFILE=10000
@@ -124,10 +140,10 @@ EOF
 sudo systemctl daemon-reload
 ```
 ```
-sudo systemctl enable farmerd
+sudo systemctl enable subspace-farmer.service
 ```
 ```
-sudo systemctl restart farmerd
+sudo systemctl restart subspace-farmer.service
 ```  
 ## Node loglarımıza bakıyoruz.
 ```
